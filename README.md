@@ -1,4 +1,4 @@
-# DJ Filter for Open-XY
+# Master DJ Filter for Open-XY
 
 A one-knob resonant LP / neutral / HP replacement for the master EQ. Shift+M2
 on MIX's filter page opens the stock `filter` selector. Turn the left encoder
@@ -17,8 +17,8 @@ the room back to neutral in approximately 120 ms.
 
 Selection and sweep are saved beside the stock `.xy` in its `.oxy` companion.
 A missing, unsupported or mismatched companion starts with stock EQ and a
-neutral DJ sweep, preserving stock EQ's own parameters. The `dj` extension ID
-also preserves compatibility with the earlier experimental filter companions.
+neutral DJ sweep, preserving stock EQ's own parameters. The catalog/extension ID is `master_dj_filter`. Its stable project-state ID
+remains `dj`, preserving earlier experimental filter companions.
 
 ## Develop
 

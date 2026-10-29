@@ -28,7 +28,7 @@ bool gray(void *, u32 value) {
 }
 } // namespace
 int main() {
-    const auto &filter = extensions::dj::filter;
+    const auto &filter = extensions::master_dj_filter::filter;
     i32 left[64], right[64];
     filter.reset();
     filter.prepare(512);
@@ -57,6 +57,6 @@ int main() {
     filter.panel->frame(scene, master::Input{512, 17, 1, 1, 1024});
     for (u32 i = 0; i < 10; ++i)
         filter.panel->frame(scene, master::Input{512, 17, 1, 1, 1024});
-    require(extensions::dj::visual.value == 50 * 1024, "smooth reset reaches neutral");
+    require(extensions::master_dj_filter::visual.value == 50 * 1024, "smooth reset reaches neutral");
     return 0;
 }

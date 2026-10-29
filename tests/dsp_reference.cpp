@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <limits>
 using namespace opxy;
-using namespace opxy::extensions::dj;
+using namespace opxy::extensions::master_dj_filter;
 static void require(bool ok, const char *why) {
     if (!ok) {
         std::fprintf(stderr, "%s\n", why);

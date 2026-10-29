@@ -3,7 +3,7 @@
 #include "master_filter.cpp"
 #include "master_filter_tables.cpp"
 #include "master_filter_room.hpp"
-namespace opxy { namespace extensions { namespace dj {
+namespace opxy { namespace extensions { namespace master_dj_filter {
 namespace {
 Processor processor;
 room::Visual visual;
@@ -53,4 +53,4 @@ const master::Panel panel = {paths, 7, "outer-color", "gray-", 237, frame};
 } // namespace
 extern constexpr Hooks hooks = Hooks();
 extern const master::Filter filter = {"dj filter", &panel, reset, prepare, process};
-}}} // namespace opxy::extensions::dj
+}}} // namespace opxy::extensions::master_dj_filter

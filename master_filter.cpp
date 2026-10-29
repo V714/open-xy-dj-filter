@@ -1,7 +1,7 @@
 #include "master_filter.hpp"
 #include <opxy/q31.hpp>
 using namespace opxy;
-namespace opxy { namespace extensions { namespace dj {
+namespace opxy { namespace extensions { namespace master_dj_filter {
 namespace {
 using opxy::q31::wide;
 i32 clamp(i64 value, i32 limit) {
@@ -109,4 +109,4 @@ void Processor::process_dj(i32 *left, i32 *right) {
         }
     }
 }
-}}} // namespace opxy::extensions::dj
+}}} // namespace opxy::extensions::master_dj_filter

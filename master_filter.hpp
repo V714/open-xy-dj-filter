@@ -1,7 +1,7 @@
 // DJ filter DSP; all state is private to the audio role.
 #pragma once
 #include <opxy/types.hpp>
-namespace opxy { namespace extensions { namespace dj {
+namespace opxy { namespace extensions { namespace master_dj_filter {
 const u32 block_frames = 64;
 const u32 ramp_frames = 882; // 20 ms at 44.1 kHz.
 // TPT-SVF coefficients and resonance peak compensation, all Q2.29.
@@ -29,4 +29,4 @@ struct Processor {
     void prepare(u32 sweep);
     void process_dj(i32 *, i32 *);
 };
-}}} // namespace opxy::extensions::dj
+}}} // namespace opxy::extensions::master_dj_filter

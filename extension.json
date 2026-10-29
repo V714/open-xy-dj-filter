@@ -1,10 +1,11 @@
 {
-  "id": "dj",
-  "name": "DJ Filter",
+  "id": "master_dj_filter",
+  "name": "Master DJ Filter",
   "description": "A resonant one-knob LP/neutral/HP master filter with an animated room.",
   "claims": [],
   "actions": [],
   "master_filter": {
-    "artwork": "artwork/master_dj_filter.svg"
+    "artwork": "artwork/master_dj_filter.svg",
+    "state_id": "dj"
   }
 }
