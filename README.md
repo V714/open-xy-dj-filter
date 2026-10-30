@@ -23,6 +23,10 @@ remains `dj`, preserving earlier experimental filter companions.
 ## Develop
 
 Requires the Open-XY SDK master-filter interface, proposed against `staging`.
+Version `v1.0.1` accompanies the interface's update to Open-XY 0.0.3 / SDK 1.6.
+The master-filter interface from PR #233 is still required; the official 0.0.3
+release alone does not provide it. DSP, artwork, controls and the `dj` project-state
+identity are unchanged from `v1.0.0`.
 From the SDK checkout:
 
 ```sh
