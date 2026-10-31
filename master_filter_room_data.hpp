@@ -10,7 +10,7 @@ static const Point blind_origin = {274334,74391};
 static const i32 door_width = 28101;
 static const i32 door_height = 60075;
 static const i32 blind_skew = 685;
-static const i32 door_min_projection = 38;
+static const i32 door_min_projection = 75;
 static const i32 blind_min_coverage = 30;
 static const Shape shapes[shape_count] = {
     {"door-panel", 4, true, {{0,0}, {28101,0}, {28101,60075}, {0,60075}}},

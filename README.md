@@ -23,7 +23,7 @@ remains `dj`, preserving earlier experimental filter companions.
 ## Develop
 
 Requires the Open-XY SDK master-filter interface, proposed against `staging`.
-Version `v1.1.2` uses the revised master-processor interface from PR #233.
+Version `v1.1.3` uses the revised master-processor interface from PR #233.
 Official SDK 0.0.3 alone does not provide that interface. Parameters follow the
 shared Q31 definition schema; drawing uses the common `draw::Frame` renderer.
 The artwork fits its existing limits of four mutable outlines and 16 palette
@@ -54,5 +54,9 @@ Publish this repository first, then submit its immutable tag/commit as a
 separate `catalog/extensions.json` PR after the required SDK interface merges.
 Do not include this DSP or artwork in the SDK PR.
 
-The door and window use opaque dark gray (#2F2F2F). The door handle is a
+The door and roller blind use opaque dark gray (#2F2F2F); the uncovered window
+reveals the animated backdrop. The door handle is a
 simple L-shaped light outline using the existing palette, with no circular plate.
+
+Near edge-on, the filled door is hidden before its projection degenerates. A
+filled one-pixel silhouette stays within the leaf height, without stroke spikes.

@@ -85,7 +85,7 @@ void display(DisplayState &state, const draw::Input &input, Frame &frame) {
             draw::hide(frame, slot);
     }
     segment(frame, 4, room_point(4, 0, pose), room_point(4, 1, pose));
-    draw::place(frame, 5, 0, 0, unit, 0, draw::keep);
+    draw::place(frame, 5, 0, pose.b * room::door_width / 2048, unit, 0, draw::keep);
     if (!room::visible(5, pose))
         draw::hide(frame, 5);
     draw::place(frame, 6, 0, 0, unit, (pose.outer_gray * 15 + 118) / 236, draw::fill_and_stroke);

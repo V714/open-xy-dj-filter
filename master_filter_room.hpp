@@ -76,7 +76,7 @@ inline Pose pose(i32 value) {
                 1024 - low,
                 static_cast<u32>((236 * high + 512) / 1024)};
 }
-// Hide sub-pixel filled polygons instead of passing singular geometry to stock.
+// Use a bounded silhouette before filled geometry becomes nearly singular.
 inline bool visible(u32 shape, const Pose &p) {
     if (shape < 3)
         return p.a <= -door_min_projection || p.a >= door_min_projection;
@@ -89,7 +89,7 @@ inline bool visible(u32 shape, const Pose &p) {
 inline Point point(u32 shape, u32 index, const Pose &p) {
     const Point q = shapes[shape].points[index];
     if (shape == 5)
-        return Point{door_origin.x, door_origin.y + (index ? p.b * door_width / 1024 + door_height : 0)};
+        return Point{door_origin.x, door_origin.y + p.b * door_width / 2048 + (index ? door_height : 0)};
     if (shape < 3)
         return Point{door_origin.x + p.a * q.x / 1024, door_origin.y + p.b * q.x / 1024 + q.y};
     return Point{blind_origin.x + q.x, blind_origin.y + blind_skew * q.x / 1024 + p.coverage * q.y / 1024};

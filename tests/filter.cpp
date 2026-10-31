@@ -41,6 +41,13 @@ int main() {
         display(state, input, frame);
         require(draw::valid(frame), "shared frame bounds");
         require(frame.nodes[6].shade < 16, "shared palette");
+        const auto pose=extensions::room::pose(state.visual.value);
+        const auto top=extensions::room::point(5,0,pose),bottom=extensions::room::point(5,1,pose);
+        require(bottom.y-top.y==extensions::room::door_height,"Edge silhouette is capped to leaf height");
+        if(extensions::room::visible(5,pose)) {
+            require(!extensions::room::visible(0,pose),"Near-singular filled door stays hidden");
+            require(frame.nodes[5].scale==draw::unit,"Edge strip keeps a nonsingular transform");
+        }
         for (u32 path = 0; path < 4; ++path) {
             i64 area = 0;
             for (u32 j = 0; j < 32; ++j) {
