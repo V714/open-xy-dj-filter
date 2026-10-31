@@ -58,5 +58,8 @@ int main() {
     for (u32 i = 0; i < 16; ++i)
         display(state, input, frame);
     require(state.visual.value == extensions::room::neutral, "reset ends at neutral");
+    const u32 key=frame.paths[0].key;
+    display(state,input,frame);
+    require(frame.paths[0].key==key,"Stationary frames retain geometry keys");
     return 0;
 }

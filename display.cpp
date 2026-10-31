@@ -50,7 +50,10 @@ void display_parameter_reset(DisplayState &state, u32 slot) {
         state.visual.reset();
 }
 void display(DisplayState &state, const draw::Input &input, Frame &frame) {
+    const i32 previous = state.visual.value;
     state.visual.step(static_cast<u32>(input.slots[0]) >> 21, input.elapsed);
+    if (state.key && state.visual.value == previous)
+        return;
     const room::Pose pose = room::pose(state.visual.value);
     if (!++state.key)
         ++state.key;
