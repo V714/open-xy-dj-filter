@@ -86,10 +86,29 @@ inline bool visible(u32 shape, const Pose &p) {
         return p.a > -door_min_projection && p.a < door_min_projection;
     return true;
 }
+struct DoorBounds { i32 left, top, right, bottom; };
+inline DoorBounds door_bounds(const Pose& p) {
+    const Point first = shapes[0].points[0];
+    const i32 x = door_origin.x + p.a * first.x / 1024;
+    const i32 y = door_origin.y + p.b * first.x / 1024 + first.y;
+    DoorBounds bounds = {x,y,x,y};
+    for(u32 i=1;i<shapes[0].count;++i) {
+        const Point q=shapes[0].points[i];
+        const i32 px=door_origin.x+p.a*q.x/1024;
+        const i32 py=door_origin.y+p.b*q.x/1024+q.y;
+        if(px<bounds.left)bounds.left=px;
+        if(px>bounds.right)bounds.right=px;
+        if(py<bounds.top)bounds.top=py;
+        if(py>bounds.bottom)bounds.bottom=py;
+    }
+    return bounds;
+}
 inline Point point(u32 shape, u32 index, const Pose &p) {
     const Point q = shapes[shape].points[index];
-    if (shape == 5)
-        return Point{door_origin.x, door_origin.y + p.b * door_width / 2048 + (index ? door_height : 0)};
+    if (shape == 5) {
+        const DoorBounds bounds=door_bounds(p);
+        return Point{(bounds.left+bounds.right)/2,index ? bounds.bottom : bounds.top};
+    }
     if (shape < 3)
         return Point{door_origin.x + p.a * q.x / 1024, door_origin.y + p.b * q.x / 1024 + q.y};
     return Point{blind_origin.x + q.x, blind_origin.y + blind_skew * q.x / 1024 + p.coverage * q.y / 1024};

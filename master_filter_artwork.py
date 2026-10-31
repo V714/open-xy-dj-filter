@@ -120,13 +120,13 @@ def generate():
         else:path(name,coords,closed,style)
     walk(byid['room'],{})
     # Never flatten the filled door to zero area in the stock rasterizer.
-    # This independent two-point stroke represents the edge-on silhouette.
+    # A separate filled strip represents the edge-on silhouette.
     geometry.append(('door-edge',[(0,0),(0,59.84*sy)],False))
-    edge_x,edge_y=world((215.27,65.36))
-    edge_height=59.84*sy
-    # A filled one-pixel strip has no miter/cap and never exceeds leaf height.
-    path('door-edge',[(edge_x-.5,edge_y),(edge_x+.5,edge_y),
-                      (edge_x+.5,edge_y+edge_height),(edge_x-.5,edge_y+edge_height)],
+    edge_height=round(59.84*sy*1024)/1024
+    # Local coordinates let the shared node scale match the projected bounds.
+    # No stroke means there are no miter/cap extensions.
+    path('door-edge',[(-.5,0),(.5,0),
+                      (.5,edge_height),(-.5,edge_height)],
          True,{'fill':'#C9C9C9'})
     for gray in range(237):
         path('gray-'+str(gray),[(640,320),(641,320),(641,321),(640,321)],True,{'fill':f'#{gray:02X}{gray:02X}{gray:02X}'})

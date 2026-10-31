@@ -23,7 +23,7 @@ remains `dj`, preserving earlier experimental filter companions.
 ## Develop
 
 Requires the Open-XY SDK master-filter interface, proposed against `staging`.
-Version `v1.1.3` uses the revised master-processor interface from PR #233.
+Version `v1.1.4` uses the revised master-processor interface from PR #233.
 Official SDK 0.0.3 alone does not provide that interface. Parameters follow the
 shared Q31 definition schema; drawing uses the common `draw::Frame` renderer.
 The artwork fits its existing limits of four mutable outlines and 16 palette
@@ -59,4 +59,5 @@ reveals the animated backdrop. The door handle is a
 simple L-shaped light outline using the existing palette, with no circular plate.
 
 Near edge-on, the filled door is hidden before its projection degenerates. A
-filled one-pixel silhouette stays within the leaf height, without stroke spikes.
+filled, stroke-free silhouette matches the bounds of all four projected corners,
+including the shear, so the apparent height remains continuous through that angle.

@@ -43,10 +43,21 @@ int main() {
         require(frame.nodes[6].shade < 16, "shared palette");
         const auto pose=extensions::room::pose(state.visual.value);
         const auto top=extensions::room::point(5,0,pose),bottom=extensions::room::point(5,1,pose);
-        require(bottom.y-top.y==extensions::room::door_height,"Edge silhouette is capped to leaf height");
+        i32 actual_top=extensions::room::point(0,0,pose).y,actual_bottom=actual_top;
+        for(u32 corner=1;corner<4;++corner) {
+            const i32 y=extensions::room::point(0,corner,pose).y;
+            if(y<actual_top)actual_top=y;
+            if(y>actual_bottom)actual_bottom=y;
+        }
+        require(top.y==actual_top && bottom.y==actual_bottom,"Edge matches all projected door corners");
         if(extensions::room::visible(5,pose)) {
             require(!extensions::room::visible(0,pose),"Near-singular filled door stays hidden");
-            require(frame.nodes[5].scale==draw::unit,"Edge strip keeps a nonsingular transform");
+            require(frame.nodes[5].y==actual_top,"Edge top matches projected door top");
+            const i32 rendered_bottom=frame.nodes[5].y+extensions::room::door_height*frame.nodes[5].scale/draw::unit;
+            require(std::abs(rendered_bottom-actual_bottom)<=extensions::room::door_height/1024+2,
+                    "Edge bottom matches projected height within Q10 scale rounding");
+            require(frame.nodes[5].scale>0 && frame.nodes[5].scale<=2*draw::unit,
+                    "Edge strip keeps a valid shared transform");
         }
         for (u32 path = 0; path < 4; ++path) {
             i64 area = 0;
