@@ -4,7 +4,7 @@
 namespace opxy {
 namespace extensions {
 namespace master_dj_filter {
-using Frame = draw::Frame<4, 32, 8, 0, 16>;
+using Frame = draw::Frame<4, 32, 7, 0, 16>;
 struct DisplayState {
     room::Visual visual;
     u32 key;

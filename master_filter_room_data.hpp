@@ -4,7 +4,7 @@
 namespace opxy { namespace extensions { namespace room {
 struct Point { i32 x,y; };
 struct Shape { const char* id; u32 count; bool closed; Point points[32]; };
-static const u32 shape_count = 7;
+static const u32 shape_count = 6;
 static const Point door_origin = {221410,68829};
 static const Point blind_origin = {274334,74391};
 static const i32 door_width = 28101;
@@ -15,8 +15,7 @@ static const i32 blind_min_coverage = 30;
 static const Shape shapes[shape_count] = {
     {"door-panel", 4, true, {{0,0}, {28101,0}, {28101,60075}, {0,60075}}},
     {"door-panel-inset", 4, false, {{2343,4819}, {25758,4819}, {25758,55256}, {2343,55256}}},
-    {"handle-outer", 32, true, {{25846,30037}, {25810,30409}, {25704,30767}, {25531,31097}, {25298,31386}, {25015,31623}, {24691,31800}, {24340,31908}, {23975,31945}, {23610,31908}, {23259,31800}, {22936,31623}, {22653,31386}, {22420,31097}, {22247,30767}, {22141,30409}, {22105,30037}, {22141,29665}, {22247,29307}, {22420,28978}, {22653,28689}, {22936,28451}, {23259,28275}, {23610,28167}, {23975,28130}, {24340,28167}, {24691,28275}, {25015,28451}, {25298,28689}, {25531,28978}, {25704,29307}, {25810,29665}}},
-    {"handle-stem", 2, false, {{23975,30037}, {20185,30037}}},
+    {"handle-outer", 6, true, {{23532,30620}, {23532,29013}, {24418,29013}, {24418,31523}, {20185,31523}, {20185,30620}}},
     {"blind-panel", 4, true, {{0,0}, {21435,0}, {21435,35057}, {0,35057}}},
     {"window-blind-bottom-bar", 2, false, {{0,35057}, {21435,35057}}},
     {"door-edge", 2, false, {{0,0}, {0,60075}}},

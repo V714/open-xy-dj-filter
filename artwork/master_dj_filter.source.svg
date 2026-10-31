@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <svg xmlns="http://www.w3.org/2000/svg" width="480" height="222" viewBox="0 0 480 222" role="img" aria-labelledby="title desc" aria-label="DJ Filter room on a continuous stock-sized 5 by 5 floor grid">
   <title id="title">DJ Filter — shared 30 by 20 grid, neutral 50</title>
-  <desc id="desc">A fixed opaque dark room floor aligns with the stock-sized 30 by 20 background grid. The floor spans 5 by 5 grid cells. Only the backdrop brightens above 50, also visible through open doors/windows.</desc>
+  <desc id="desc">A fixed opaque dark room floor aligns with the stock-sized 30 by 20 background grid. The floor spans 5 by 5 grid cells. The door and window panes are opaque dark gray. Only the backdrop brightens above 50 and remains visible through the open doorway.</desc>
   <defs>
     <pattern id="highpass-floor-tile-pattern" width="30" height="20" patternUnits="userSpaceOnUse" data-pattern="shared-room-and-background" data-sync="origin:240,110;steps:15,10;-15,10" x="240" y="110">
       <rect x="0" y="0" width="30" height="20" fill="#000000" id="highpass-background-tile-color" data-purpose="update-solid-fill-only-when-filter-is-above-50">
@@ -28,11 +28,11 @@
       <path id="door-inner-edge" d="M 189.11 142.25 L 189.11 85.37 L 212.89 69.45 L 212.89 126.75" fill="none" stroke="#7F7F7F" stroke-width="0.7" />
     </g>
     <g id="window">
-      <path id="window-frame-outer" fill="#171717" stroke="#B8B8B8" stroke-width="1.2" d="M 266.3 66.71 L 293.51 84.36 L 293.51 124.6 L 266.3 107.09 Z M 269.02 70.9 L 290.79 85.18 L 290.79 120.09 L 269.02 105.82 Z" fill-rule="evenodd" />
+      <polygon id="window-pane" points="269.02,70.9 290.79,85.18 290.79,120.09 269.02,105.82" fill="#2F2F2F" /><path id="window-frame-outer" fill="#171717" stroke="#B8B8B8" stroke-width="1.2" d="M 266.3 66.71 L 293.51 84.36 L 293.51 124.6 L 266.3 107.09 Z M 269.02 70.9 L 290.79 85.18 L 290.79 120.09 L 269.02 105.82 Z" fill-rule="evenodd" />
       <g id="window-roller-blind" data-coverage="0" data-direction="top-down" data-state="retracted">
         <g id="window-blind-fabric" transform="matrix(1 0.656 0 1 269.02 70.90)" data-local-width="21.77" data-local-height="34.92">
           <g id="blind-rollout" transform="scale(1 0)" data-coverage="0">
-            <rect id="blind-panel" x="0" y="0" width="21.77" height="34.92" fill="#7F7F7F" />
+            <rect id="blind-panel" x="0" y="0" width="21.77" height="34.92" fill="#2F2F2F" />
             <path id="window-blind-bottom-bar" d="M 0 34.92 H 21.77" fill="none" stroke="#DCDCDC" stroke-width="1.15" vector-effect="non-scaling-stroke" />
           </g>
         </g>
@@ -58,12 +58,10 @@
         <g id="door-swing" transform="scale(1 1)" data-control="x-projection -1 to 1">
           <g id="door-iso-projection" transform="skewY(33.3878774)" data-control="skewY angle for foreshortening">
             <g id="door-leaf">
-              <rect id="door-panel" x="0" y="0" width="28.54" height="59.84" fill="#282828" stroke="#C9C9C9" stroke-width="1.2" vector-effect="non-scaling-stroke" />
+              <rect id="door-panel" x="0" y="0" width="28.54" height="59.84" fill="#2F2F2F" stroke="#C9C9C9" stroke-width="1.2" vector-effect="non-scaling-stroke" />
               <path id="door-panel-inset" d="M 2.38 4.8 L 26.16 4.8 L 26.16 55.04 L 2.38 55.04" fill="none" stroke="#5C5C5C" stroke-width="0.75" vector-effect="non-scaling-stroke" />
               <g id="door-handle" stroke="#DCDCDC" stroke-width="1" fill="#171717">
-                <circle id="handle-outer" cx="24.35" cy="29.92" r="1.9" vector-effect="non-scaling-stroke" />
-                <path id="handle-stem" d="M 24.35 29.92 L 20.5 29.92" fill="none" vector-effect="non-scaling-stroke" />
-              </g>
+                <path id="handle-outer" d="M 23.9 30.5 L 23.9 28.9 L 24.8 28.9 L 24.8 31.4 L 20.5 31.4 L 20.5 30.5 Z" fill="#ECECEC" stroke="#ECECEC" stroke-width="0.4" /></g>
             </g>
           </g>
         </g>

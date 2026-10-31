@@ -57,15 +57,15 @@ void display(DisplayState &state, const draw::Input &input, Frame &frame) {
     const room::Pose pose = room::pose(state.visual.value);
     if (!++state.key)
         ++state.key;
-    const u32 shapes[4] = {0, 1, 2, 4};
-    const u32 shades[4] = {3, 6, 1, 8};
+    const u32 shapes[4] = {0, 1, 2, 3};
+    const u32 shades[4] = {3, 6, 15, 3};
     for (u32 slot = 0; slot < 4; ++slot) {
         const u32 shape = shapes[slot];
         draw::Point p[32];
         u32 count = room::shapes[shape].count;
         const bool visible = room::visible(shape, pose);
         // Hidden frames keep valid geometry; stock must never receive a collapsed polygon.
-        const room::Pose geometry = visible ? pose : room::pose(shape == 4 ? 0 : room::neutral);
+        const room::Pose geometry = visible ? pose : room::pose(shape == 3 ? 0 : room::neutral);
         for (u32 j = 0; j < count; ++j)
             p[j] = room_point(shape, j, geometry);
         if (shape == 1) {
@@ -84,14 +84,11 @@ void display(DisplayState &state, const draw::Input &input, Frame &frame) {
         if (!visible)
             draw::hide(frame, slot);
     }
-    segment(frame, 4, room_point(3, 0, pose), room_point(3, 1, pose));
-    if (!room::visible(3, pose))
-        draw::hide(frame, 4);
-    segment(frame, 5, room_point(5, 0, pose), room_point(5, 1, pose));
-    draw::place(frame, 6, 0, 0, unit, 0, draw::keep);
-    if (!room::visible(6, pose))
-        draw::hide(frame, 6);
-    draw::place(frame, 7, 0, 0, unit, (pose.outer_gray * 15 + 118) / 236, draw::fill_and_stroke);
+    segment(frame, 4, room_point(4, 0, pose), room_point(4, 1, pose));
+    draw::place(frame, 5, 0, 0, unit, 0, draw::keep);
+    if (!room::visible(5, pose))
+        draw::hide(frame, 5);
+    draw::place(frame, 6, 0, 0, unit, (pose.outer_gray * 15 + 118) / 236, draw::fill_and_stroke);
     for (u32 i = 0; i < 4; ++i)
         frame.header[i][0] = 0;
 }

@@ -40,7 +40,7 @@ int main() {
         input.slots[0] = parameters[0];
         display(state, input, frame);
         require(draw::valid(frame), "shared frame bounds");
-        require(frame.nodes[7].shade < 16, "shared palette");
+        require(frame.nodes[6].shade < 16, "shared palette");
         for (u32 path = 0; path < 4; ++path) {
             i64 area = 0;
             for (u32 j = 0; j < 32; ++j) {

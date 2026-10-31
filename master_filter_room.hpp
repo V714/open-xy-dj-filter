@@ -78,19 +78,19 @@ inline Pose pose(i32 value) {
 }
 // Hide sub-pixel filled polygons instead of passing singular geometry to stock.
 inline bool visible(u32 shape, const Pose &p) {
-    if (shape < 4)
+    if (shape < 3)
         return p.a <= -door_min_projection || p.a >= door_min_projection;
-    if (shape == 4)
+    if (shape == 3)
         return p.coverage >= blind_min_coverage; // One pixel of blind height.
-    if (shape == 6)
+    if (shape == 5)
         return p.a > -door_min_projection && p.a < door_min_projection;
     return true;
 }
 inline Point point(u32 shape, u32 index, const Pose &p) {
     const Point q = shapes[shape].points[index];
-    if (shape == 6)
+    if (shape == 5)
         return Point{door_origin.x, door_origin.y + (index ? p.b * door_width / 1024 + door_height : 0)};
-    if (shape < 4)
+    if (shape < 3)
         return Point{door_origin.x + p.a * q.x / 1024, door_origin.y + p.b * q.x / 1024 + q.y};
     return Point{blind_origin.x + q.x, blind_origin.y + blind_skew * q.x / 1024 + p.coverage * q.y / 1024};
 }
