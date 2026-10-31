@@ -150,7 +150,38 @@ def generate():
     return data,'\n'.join(header)
 
 
+def shared_artwork(data):
+    root=ET.fromstring(data)
+    ids={'door-panel':0,'door-panel-inset':1,'handle-outer':2,'blind-panel':3,
+         'handle-stem':4,'window-blind-bottom-bar':5,'door-edge':6,'outer-color':7}
+    for node in list(root):
+        name=node.get('id','')
+        if name.startswith('gray-'):
+            root.remove(node);continue
+        if name not in ids:continue
+        index=ids[name];node.set('id','master_dj_filter_node_'+str(index))
+        node.attrib.pop('transform',None)
+        if index<4:
+            # The normal retained renderer binds 32 distinct closed points.
+            coords=[(30*math.cos(i*math.tau/32),30*math.sin(i*math.tau/32)) for i in range(32)]
+            node.set('d','M '+' L '.join(f'{x:.4f} {y:.4f}' for x,y in coords)+' Z')
+            node.set('fill','none');node.set('stroke','#000000');node.set('stroke-width','0.1' if index==1 else '0.25')
+        elif index in (4,5):
+            coords,_=points(node)
+            length=math.hypot(coords[1][0]-coords[0][0],coords[1][1]-coords[0][1])
+            width=float(node.get('stroke-width','0.5'))*64/length
+            node.set('d','M 0 0 L 64 0');node.set('fill','none')
+            node.set('stroke-width',f'{width:.4f}')
+        elif index==7:
+            node.set('d','M -2 -2 L 482 -2 L 482 224 L -2 224 Z')
+    for i in range(16):
+        value=round(236*i/15);color='#'+f'{value:02x}'*3
+        ET.SubElement(root,'path',{'id':'master_dj_filter_palette_'+str(i),'d':'M 600 300 L 601 300 L 601 301 Z',
+                                  'fill':color,'stroke':('#DCDCDC' if i==1 else '#C9C9C9' if i==3 else color),'stroke-width':'0.5'})
+    return ET.tostring(root,encoding='utf-8',xml_declaration=True)+b'\n'
+
+
 if __name__=='__main__':
     svg,header=generate()
-    (ROOT/'artwork/master_dj_filter.svg').write_bytes(svg)
+    (ROOT/'artwork/master_dj_filter.svg').write_bytes(shared_artwork(svg))
     (ROOT/'master_filter_room_data.hpp').write_text(header,encoding='utf-8',newline='\n')

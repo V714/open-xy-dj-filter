@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "id": "master_dj_filter",
+  "name": "Master DJ Filter",
+  "parameters": [
+    {
+      "id": "sweep",
+      "label": "filter",
+      "default": 0.5,
+      "mapping": {
+        "kind": "linear",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "display": "bipolar"
+    }
+  ],
+  "presets": {},
+  "resources": {
+    "display": {
+      "stateBytes": 24,
+      "stateAlignment": 4,
+      "paths": 4,
+      "points": 32,
+      "nodes": 8,
+      "texts": 0,
+      "palette": 16
+    }
+  }
+}
