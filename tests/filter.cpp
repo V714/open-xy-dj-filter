@@ -59,6 +59,15 @@ int main() {
             require(frame.nodes[5].scale>0 && frame.nodes[5].scale<=2*draw::unit,
                     "Edge strip keeps a valid shared transform");
         }
+        for(u32 contour=0;contour<3;++contour)if(extensions::room::visible(contour,pose)) {
+            for(u32 j=0;j<32;++j) {
+                const auto a=frame.paths[contour].points[(j+31)%32],p=frame.paths[contour].points[j],b=frame.paths[contour].points[(j+1)%32];
+                const double ax=a.x-p.x,ay=a.y-p.y,bx=b.x-p.x,by=b.y-p.y;
+                const double lengths=std::sqrt((ax*ax+ay*ay)*(bx*bx+by*by));
+                if(lengths>0)require((ax*bx+ay*by)/lengths<=.7072,
+                                    "Door contour must not create acute stroke joins near edge-on");
+            }
+        }
         for (u32 path = 0; path < 4; ++path) {
             i64 area = 0;
             for (u32 j = 0; j < 32; ++j) {

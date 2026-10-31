@@ -20,6 +20,35 @@ void outline(Frame &frame, u32 slot, const draw::Point *points, u32 count, u32 k
         frame.paths[slot].points[j] = {(x - 240 * unit) / 2, (y - 110 * unit) / 2};
     }
 }
+// Length in screen Q10; scale before squaring to keep all arithmetic 32-bit.
+i32 edge_length(i32 dx, i32 dy) {
+    u32 scale=1;
+    while(dx>32767 || dx<-32767 || dy>32767 || dy<-32767){dx/=2;dy/=2;scale*=2;}
+    u32 n=static_cast<u32>(dx*dx+dy*dy),root=0,bit=1u<<30;
+    while(bit>n)bit>>=2;
+    while(bit){if(n>=root+bit){n-=root+bit;root=(root>>1)+bit;}else root>>=1;bit>>=2;}
+    return static_cast<i32>(root*scale);
+}
+u32 bevel_corners(draw::Point* points,u32 count) {
+    // Stock strokes can spike at the acute projected corners. Cut the corners
+    // in authored geometry instead of depending on stock line-join behavior.
+    if(count>16)return count;
+    draw::Point output[32];i32 lengths[16];
+    for(u32 i=0;i<count;++i){const auto a=points[i],b=points[(i+1)%count];lengths[i]=edge_length(b.x-a.x,b.y-a.y);}
+    for(u32 i=0;i<count;++i) {
+        const u32 previous=(i+count-1)%count,next=(i+1)%count;
+        i32 cut=unit/2;
+        if(cut>lengths[previous]/4)cut=lengths[previous]/4;
+        if(cut>lengths[i]/4)cut=lengths[i]/4;
+        const auto p=points[i],a=points[previous],b=points[next];
+        output[2*i]={p.x+(lengths[previous] ? (a.x-p.x)*cut/lengths[previous] : 0),
+                     p.y+(lengths[previous] ? (a.y-p.y)*cut/lengths[previous] : 0)};
+        output[2*i+1]={p.x+(lengths[i] ? (b.x-p.x)*cut/lengths[i] : 0),
+                       p.y+(lengths[i] ? (b.y-p.y)*cut/lengths[i] : 0)};
+    }
+    for(u32 i=0;i<2*count;++i)points[i]=output[i];
+    return 2*count;
+}
 void segment(Frame &frame, u32 node, draw::Point a, draw::Point b) {
     const i32 dx = b.x - a.x, dy = b.y - a.y;
     // Integer square root; GUI only, bounded to at most 24 iterations.
@@ -79,6 +108,7 @@ void display(DisplayState &state, const draw::Input &input, Frame &frame) {
                 p[j] = ribbon[j];
             count = 8;
         }
+        if(shape<3)count=bevel_corners(p,count);
         outline(frame, slot, p, count, state.key);
         draw::place(frame, slot, 240 * unit, 110 * unit, 2 * unit, shades[slot], draw::fill_and_stroke);
         if (!visible)
