@@ -23,13 +23,15 @@ remains `dj`, preserving earlier experimental filter companions.
 ## Develop
 
 Requires the Open-XY SDK master-filter interface, proposed against `staging`.
-Version `v1.1.0` uses the revised master-processor interface from PR #233.
+Version `v1.1.1` uses the revised master-processor interface from PR #233.
 Official SDK 0.0.3 alone does not provide that interface. Parameters follow the
 shared Q31 definition schema; drawing uses the common `draw::Frame` renderer.
 The artwork fits its existing limits of four mutable outlines and 16 palette
 entries. Background brightness therefore has 16 shades. DSP, controls, the
 120 ms reset transition and stable `dj` project-state identity are unchanged.
 Older version-1 sweep companions remain readable by the SDK.
+The v1.1.1 artwork fixes the stock SVG loader failure by serializing plain
+`svg`/`path` tags with a default namespace, rather than XML-prefixed tags.
 From the SDK checkout:
 
 ```sh

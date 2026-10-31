@@ -151,6 +151,8 @@ def generate():
 
 
 def shared_artwork(data):
+    # Stock matches literal svg/path names; never serialize ns0: prefixes.
+    ET.register_namespace("", NS[1:-1])
     root=ET.fromstring(data)
     ids={'door-panel':0,'door-panel-inset':1,'handle-outer':2,'blind-panel':3,
          'handle-stem':4,'window-blind-bottom-bar':5,'door-edge':6,'outer-color':7}
